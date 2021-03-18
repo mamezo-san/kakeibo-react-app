@@ -5,11 +5,10 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import baseUrl from '../Apis/KakeiboRails';
+import ResultForm from './ResultForm';
 
 const PostForm = (props) =>{
-
-  // const [total,setTotal] = useState("");
 
   const [elect,setElect] = useState("");
 
@@ -20,14 +19,6 @@ const PostForm = (props) =>{
   const [bankT,setBankT] = useState("");
 
   const [bankK,setBankK] = useState("");
-
-  // const inputTotal = useCallback((event) => {
-  //   setTotal(event.target.value)
-  // },[setTotal]);
-
-  // const increTotal = () => {
-  //   setTotal(elect+gass+water),[setTotal]
-  // }
 
   const inputElect = useCallback((event) => {
     setElect(event.target.value)
@@ -60,7 +51,17 @@ const PostForm = (props) =>{
   };
 
   const headers = new Headers()
-    headers.set("Content-Type","application/json")
+    headers.set("Content-Type","application/json");
+
+  const [open,setOpen] = useState(false);
+
+  const handleOpen = useCallback(() => {
+    setOpen(true)
+  },[setOpen]);
+
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  },[setOpen]);
 
   const submitForm = () =>{
     const isBlank = validateRequiredInput(elect,gass,water,bankT,bankK)
@@ -70,7 +71,6 @@ const PostForm = (props) =>{
       return false
     } else {
       const money = {
-        // total: total,
         elect: elect,
         gass: gass,
         water: water,
@@ -78,13 +78,12 @@ const PostForm = (props) =>{
         r_kyouka: bankK
       };
       // debugger
-      fetch('http://127.0.0.1:3001/api/v1/moneys',{
+      fetch(baseUrl,{
         method: 'POST',
         headers: headers,
         body: JSON.stringify(money)
       }).then(() => {
         alert(`保存しました`);
-        // setTotal("")
         setElect("")
         setGass("")
         setWater("")
@@ -101,10 +100,6 @@ const PostForm = (props) =>{
     <Dialog open={props.open} onClose={props.handleClose}>
       <DialogTitle>生活費計算フォーム</DialogTitle>
       <DialogContent>
-        {/* <TextInput 
-          label={"合計"} multiline={false} row={1}
-          value={total} type={"total"} onChange={inputTotal}
-        /> */}
         <TextInput 
           label={"電気代"} multiline={false} row={1}
           value={elect} type={"elect"} onChange={inputElect}
@@ -130,8 +125,20 @@ const PostForm = (props) =>{
         <Button onClick={props.handleClose} color="primary">
           キャンセル
         </Button>
+        <Button onClick={handleOpen} color="primary">
+            計算する
+        </Button>
+        <ResultForm open={open}
+                    handleOpen={handleOpen} 
+                    handleClose={handleClose}
+                    elect={elect}
+                    gass={gass}
+                    water={water}
+                    bankT={bankT}
+                    bankK={bankK}
+        />
         <Button onClick={submitForm} color="primary">
-            送信する
+            データを保存する
         </Button>
       </DialogActions>
     </Dialog>

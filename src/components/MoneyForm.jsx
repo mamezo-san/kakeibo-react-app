@@ -1,24 +1,23 @@
 import React, { useState } from 'react';
-import Resources from './Resources';
-import KakeiboRails from '../Apis/KakeiboRails';
+// import Resources from './Resources';
+import baseUrl from './Apis/KakeiboRails';
 
 const MoneyForm = () => {
-    const [ resources,setResources] = useState ([]);
-
-    const getTotals = async () => {
-        try {
-            const totals = await  KakeiboRails.get('/');
-            setResources(totals.data);
-        }catch (error){
-            console.log(error);
+    
+    const getMoneys = async () => {
+            const moneys = await  fetch(baseUrl)
+            .then((res)=> {
+                return(res.json());
+            })
+            .then((json)=> {
+                return console.log(moneys.id)
+            });
         }
-    };
 
 
     return(
         <div>
-            <button onClick={getTotals}>生活費一覧</button>
-            <Resources resources={resources}/>
+            <button onClick={getMoneys}>生活費一覧</button>
         </div>
     )
 }

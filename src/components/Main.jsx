@@ -2,7 +2,6 @@ import React, { useState,useCallback } from 'react';
 import Month from './Month';
 import MoneyForm from './MoneyForm';
 import PostForm from './Form/PostForm';
-import axios from 'axios';
 
 const Main = () => {
 
