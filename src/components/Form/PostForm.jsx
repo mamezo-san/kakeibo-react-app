@@ -50,9 +50,6 @@ const PostForm = (props) =>{
     return isBlank
   };
 
-  const headers = new Headers()
-    headers.set("Content-Type","application/json");
-
   const [open,setOpen] = useState(false);
 
   const handleOpen = useCallback(() => {
@@ -63,38 +60,25 @@ const PostForm = (props) =>{
     setOpen(false)
   },[setOpen]);
 
-  const submitForm = () =>{
+  const submitResult = () =>{
     const isBlank = validateRequiredInput(elect,gass,water,bankT,bankK)
 
     if(isBlank) {
       alert('空白です')
       return false
     } else {
-      const money = {
-        elect: elect,
-        gass: gass,
-        water: water,
-        r_takuya: bankT,
-        r_kyouka: bankK
-      };
-      // debugger
-      fetch(baseUrl,{
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(money)
-      }).then(() => {
-        alert(`保存しました`);
-        setElect("")
-        setGass("")
-        setWater("")
-        setBankT("")
-        setBankK("")
-        return props.handleClose()
-      })
-    }
+        return handleOpen()
+      }
   };
 
-  
+  const close = () => {
+    setElect("")
+    setGass("")
+    setWater("")
+    setBankT("")
+    setBankK("")
+    return props.handleClose()
+  };
 
   return(
     <Dialog open={props.open} onClose={props.handleClose}>
@@ -122,10 +106,10 @@ const PostForm = (props) =>{
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={props.handleClose} color="primary">
+        <Button onClick={close} color="primary">
           キャンセル
         </Button>
-        <Button onClick={handleOpen} color="primary">
+        <Button onClick={submitResult} color="primary">
             計算する
         </Button>
         <ResultForm open={open}
@@ -137,9 +121,9 @@ const PostForm = (props) =>{
                     bankT={bankT}
                     bankK={bankK}
         />
-        <Button onClick={submitForm} color="primary">
+        {/* <Button onClick={submitForm} color="primary">
             データを保存する
-        </Button>
+        </Button> */}
       </DialogActions>
     </Dialog>
   );
