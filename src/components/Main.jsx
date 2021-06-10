@@ -17,7 +17,7 @@ const Main = () => {
 
     return(
         <div>
-            <Month />
+            {/* <Month /> */}
             <MoneyForm />
             <PostForm open={open} handleOpen={handleOpen} handleClose={handleClose} />
             <button onClick={handleOpen}>

@@ -1,28 +1,28 @@
-import React ,{ useState,useCallback }from 'react';
-import PostLine from './Line/PostLine';
+// import React ,{ useState,useCallback }from 'react';
+// import PostLine from './Line/PostLine';
 
 
-const Footer = (props) => {
+// const Footer = (props) => {
 
-    const [open,setOpen] = useState(false);
+//     const [open,setOpen] = useState(false);
 
-    const handleOpen = useCallback(() => {
-        setOpen(true)
-    },[setOpen]);
+//     const handleOpen = useCallback(() => {
+//         setOpen(true)
+//     },[setOpen]);
 
-    const handleClose = useCallback(() => {
-        setOpen(false)
-    },[setOpen]);
+//     const handleClose = useCallback(() => {
+//         setOpen(false)
+//     },[setOpen]);
 
-    return(
-        <div>
-            <PostLine open={open} handleClose={handleClose} handleOpen={handleOpen}/>
-            <button onClick={handleOpen}>
-                {props.line}
-            </button>
-            {console.log(open)}
-        </div>
-    );
-}
+//     return(
+//         <div>
+//             <PostLine open={open} handleClose={handleClose} handleOpen={handleOpen}/>
+//             <button onClick={handleOpen}>
+//                 {props.line}
+//             </button>
+//             {console.log(open)}
+//         </div>
+//     );
+// }
 
-export default Footer;
+// export default Footer;

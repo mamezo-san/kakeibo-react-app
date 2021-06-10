@@ -5,7 +5,8 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import baseUrl from '../Apis/KakeiboRails';
+import  baseUrl from '../Apis/KakeiboRails';
+import  baseUrlLine from '../Apis/KakeiboRails';
 
 const ResultForm = (props) => {
 
@@ -31,32 +32,78 @@ const ResultForm = (props) => {
 
     const rTotal = numberBankT+numberBankK
 
-    const bankToT = 35000-numberBankT
+    const bankToT = 25000-numberBankT
 
-    const bankToK = 35000-numberBankK
+    const bankToK = 25000-numberBankK
+
+    const bankRakuten = bankToK+bankToK
+
+    const kyoukaDrop = bankRakuten+addTakuya+20000
 
     const headers = new Headers()
     headers.set("Content-Type","application/json");
-    
-    const submitForm = () =>{
-      const money = {
+
+    const money = {
         elect: numberElect,
         gass: numberGass,
         water: numberWater,
         r_takuya: numberBankT,
         r_kyouka: numberBankK,
-        total: resultTotal
-      };
-      // debugger
+        total: resultTotal,
+        addTakuya: addTakuya,
+        bankRakuten: bankRakuten,
+        kyoukaDrop: kyoukaDrop
+    };
+
+    // const message = "sample"
+    
+    const submitForm = () =>{
+      
       fetch(baseUrl,{
         method: 'POST',
         headers: headers,
         body: JSON.stringify(money)
-      }).then(() => {
+      })
+    //railsだと非同期処理かけるが、expressだと非同期にすると処理が進まない
+    //   .then(() => {
         alert(`保存しました`);
         return props.handleClose()
-      })
+    //   })
   };
+//   console.log(fetch.body);
+//   debugger
+
+
+
+
+
+
+    
+
+    // const linePost = () => {
+
+    //     const line = require('@line/bot-sdk');
+
+    //     const client = new line.Client({
+    //       channelAccessToken: '20gVBOfyYhFUlh0z12Pk5YXqCI8rWRy2QwcOzCi5frHXZVZsnyWVMbxBvVcgKeNsx7eJo2wRN1FltRA7bHWDmWFaQPyxmclhE6TWKP8kGosnpYo0Exs1l+X4SqoNaavp9se2eB1OJ9HqhkCjlnn73QdB04t89/1O/w1cDnyilFU='
+    //     });
+
+    //     const message = {
+    //       type: 'text',
+    //       text: '今月の生活費のお知らせです\n' +
+    //             '合計金額:' + money.total + '\n' +
+    //             '電気代:' + money.elect + '\n' 
+    //     };
+
+    //     client.pushMessage('U7e2a632321c91095008d774c5a52c2e1', message)
+    //       .then(() => {
+    //         alert('LINEに送信しました')
+    //       })
+    //       .catch((err) => {
+    //         // error handling
+    //       });
+
+    // };
 
 
     return(
@@ -70,25 +117,31 @@ const ResultForm = (props) => {
                     拓哉支払額:{resultTakuya}円
                 </div>
                 <div>
-                    京香支払額:{resultKyouka}円
+                    京香みずほから引き出す額:{resultKyouka}円
                 </div>
                 <div>
                     拓哉への補填代金:{addTakuya}円
                 </div>
                 <div>
-                    楽天残高合計:{rTotal}円
+                    三井住友に貯金する額:{rTotal}円
                 </div>
                 <div>
+                    楽天口座送金額：{bankRakuten}円
+                </div>
+                {/* <div>
                     拓哉楽天口座送金額:{bankToT}円
                 </div>
                 <div>
                     京香楽天口座送金額:{bankToK}円
-                </div>
+                </div> */}
             </DialogContent>
             <DialogActions>
                 <Button onClick={props.handleClose} color="primary">
                     キャンセル
                 </Button>
+                {/* <Button onClick={submitFormLine} color="primary">
+                    LINEで送信する
+                </Button> */}
                 <Button onClick={submitForm} color="primary">
                     保存する
                 </Button>

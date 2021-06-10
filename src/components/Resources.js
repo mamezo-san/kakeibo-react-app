@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Resources = ({ resources }) => {
+const Resources = ({ moneys }) => {
     return(
         <>
             <tr>
@@ -17,19 +17,19 @@ const Resources = ({ resources }) => {
                     水道代
                 </td>
             </tr>
-          {resources.map((resource)  => (
-                <tr key={resource.id}>
+          {moneys.map((money)  => (
+                <tr key={money.id}>
                     <td>
-                        {resource.total}
+                        {money.total}
                     </td>
                     <td>
-                        {resource.elect}
+                        {money.elect}
                     </td>
                     <td>
-                        {resource.gass}
+                        {money.gass}
                     </td>
                     <td>
-                        {resource.water}
+                        {money.water}
                     </td>
                 </tr>
           ))}

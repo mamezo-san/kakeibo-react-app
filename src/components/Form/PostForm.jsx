@@ -5,7 +5,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import baseUrl from '../Apis/KakeiboRails';
 import ResultForm from './ResultForm';
 
 const PostForm = (props) =>{
@@ -121,9 +120,6 @@ const PostForm = (props) =>{
                     bankT={bankT}
                     bankK={bankK}
         />
-        {/* <Button onClick={submitForm} color="primary">
-            データを保存する
-        </Button> */}
       </DialogActions>
     </Dialog>
   );

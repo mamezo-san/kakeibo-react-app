@@ -8,14 +8,14 @@ const Month = () => {
         counter(count+1)
     }
 
-    useEffect (() => {
-        document.getElementById('counter').addEventListener('click',countUp)
-        if(count>=13){
-            counter(1)
-        }
-        return() => 
-            document.getElementById('counter').removeEventListener('click',countUp)
-    });
+    // useEffect (() => {
+    //     document.getElementById('counter').addEventListener('click',countUp)
+    //     if(count>=13){
+    //         counter(1)
+    //     }
+    //     return() => 
+    //         document.getElementById('counter').removeEventListener('click',countUp)
+    // },[]);
 
     return(
         <div>

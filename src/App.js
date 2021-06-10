@@ -2,7 +2,7 @@ import React from 'react'
 import './App.css';
 import Header from './components/Header';
 import Main from './components/Main';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 
 const App = () => {
   return(
@@ -13,10 +13,10 @@ const App = () => {
           subtitle={"家計簿アプリとは"}
           />
         <Main />
-        <Footer
+        {/* <Footer
           line={'LINEで送信する'}
           cvs={'cvsで保存する'}
-        />
+        /> */}
       </div>
     </React.Fragment>
   )
