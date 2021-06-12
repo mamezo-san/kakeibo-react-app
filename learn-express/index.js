@@ -10,10 +10,10 @@ require('dotenv').config();
 
 
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'mame',
-    database: 'kakeibo'
+    host: process.env.POST_HOST,
+    user: process.env.POST_USER,
+    password: process.env.POST_PASSWORD,
+    database: process.env.POST_DB
 });
 
 connection.connect((err) => {
@@ -75,7 +75,8 @@ app.post('/api/v1/moneys',jsonParser,(req,res) => {
               
                 const message = {
                     type: 'text',
-                    text: 'こんにちわkakeibo.chです \n 今月の家計簿のお知らせです。\n' +
+                    text: 'こんにちわkakeibo.chです \n' +
+                          '今月の家計簿のお知らせです。\n' +
                           `支出総額は${total}円です。\n`+
                           '京香さんが引き落とす金額は'+`${req.body.kyoukaDrop}円です。\n`+
                           `内訳は拓哉さんへの補填が${req.body.addTakuya}円、\n`+
@@ -83,7 +84,7 @@ app.post('/api/v1/moneys',jsonParser,(req,res) => {
                           '三井住友銀行への貯金が20000円です。'
                 };
               
-                client.pushMessage(process.env.LINE_TO_ME, message)
+                client.multicast([process.env.LINE_TO_ME,process.env.LINE_TO_YOU], message)
                     .then(() => {
                         console.log("line ok");
                 })
